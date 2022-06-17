@@ -9,11 +9,13 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
     public function create(Request $request){
-
+//        dd($request['status']);
         $validate=$request->validate([
             'name' => ['required', 'string', 'max:255'],
             'surname' => ['required', 'string', 'max:255'],
@@ -33,8 +35,9 @@ class UserController extends Controller
         }else{
             $path = '';
         }
+
         if($validate) {
-            User::create([
+            $user = User::create([
                 'name' => $request['name'],
                 'surname' => $request['surname'],
                 'patronymic' => $request['patronymic'],
@@ -47,7 +50,10 @@ class UserController extends Controller
                 'photo_url' => asset('/storage/'.$path),
                 'address' => $address_json
             ]);
+
+            $user->assignRole($request['status']);
         }
+
         return redirect(route('user.cabinet_profile'));
     }
     public function change_major_info(Request $request){
@@ -59,10 +65,11 @@ class UserController extends Controller
         $initials_array=explode(' ', $request->n_s_p);
         $address_array=explode(',', $request->c_c);
         $flag=false;
-        if($previous_name!=$initials_array['1']){
+        if($previous_name != $initials_array['1']){
             $flag=true;
             $User->name=$initials_array['1'];
         }
+
         if($previous_surname!=$initials_array['0']){
             $flag=true;
             $User->surname=$initials_array['0'];
@@ -71,9 +78,9 @@ class UserController extends Controller
             $flag=true;
             $User->patronymic=$initials_array['2'];
         }
-        if($previous_address[0]!=$address_array[0]){
+        if($previous_address[0] != $address_array[0]){
             $flag=true;
-            $previous_address[0]=$address_array[0];
+            $previous_address[0] = $address_array[0];
         }
         if($previous_address[1]!=$address_array[1]){
             $flag=true;
@@ -127,14 +134,20 @@ class UserController extends Controller
         }
         return redirect(route('user.cabinet_profile'));
     }
+
     public function change_access(Request $request){
-        $accesses=Access::all()->where('id', $request['id']);
-        foreach($accesses as $access){
-            $access->access_type=$request['access_type'];
-            $access->save();
+        # Получаем пользователя по id
+        $user = User::where('id', $request->input('user_id'))->first();
+
+        # Снимаем предыдущие права
+        foreach ($user->getAllPermissions() as $permission) {
+            $user->revokePermissionTo($permission->name);
         }
+        # Выдаём свежие права
+        $user->givePermissionTo($request->input('access_type'));
         return redirect(route('user.cabinet_users_list'));
     }
+
     public function add_access(Request $request){
         $users=User::all()->where('login', $request['login']);
         foreach($users as $user){

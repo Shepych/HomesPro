@@ -1,4 +1,5 @@
 @extends('layouts/cabinet_layout')
+
 @section('content')
     <section class="section cabinet_top">
         <div class="container">
@@ -287,7 +288,7 @@
                                     <path d="M9.91992.730131c.12738-.000161.25368.024818.37138.073506.1178.048689.2248.120131.3149.210233.0901.0901.1615.1971.2102.31485.0487.11776.0737.24396.0735.37138l-.0014 7.25152 7.2515-.00137c.1274 0 .2535.02509.3712.07383.1177.04875.2246.12019.3147.21027.0901.09007.1615.19699.2103.31468.0487.11768.0738.24381.0738.37119 0 .12738-.0251.25348-.0738.37118-.0488.1177-.1202.2246-.2103.3147-.0901.0901-.197.1615-.3147.2103-.1177.0487-.2438.0738-.3712.0738l-7.2515-.0014.0014 7.2515c0 .1274-.0251.2535-.0738.3712-.0488.1177-.1202.2246-.2103.3147-.0901.0901-.197.1615-.3147.2103-.1177.0487-.2438.0738-.37118.0738-.12738 0-.25351-.0251-.37119-.0738-.11768-.0488-.22461-.1202-.31468-.2103-.09007-.0901-.16152-.197-.21027-.3147-.04874-.1177-.07383-.2438-.07383-.3712l.00137-7.2515-7.25151.0014c-.12738 0-.25351-.0251-.3712-.0738-.11768-.0488-.22461-.1202-.31468-.2103-.090069-.0901-.161517-.197-.210263-.3147-.048746-.1177-.073834-.2438-.073835-.37118 0-.12738.025089-.25351.073835-.37119.048745-.11769.120194-.22461.210263-.31468.09007-.09008.197-.16152.31468-.21027.11769-.04874.24382-.07383.3712-.07383l7.25151.00137-.00137-7.25152c-.00016-.12742.02482-.25362.0735-.37138.04869-.11775.12014-.22475.21024-.31485a.968684.968684 0 0 1 .31485-.210233c.11775-.048688.24396-.073667.37138-.073506Z"
                                           fill="#E45847" />
                                 </svg>
-                                <div>
+                                <div onclick="clickAddSlide()">
                                     добавить слайд
                                 </div>
                             </button>
@@ -392,7 +393,7 @@
                                         Имя Фамилия
                                     </div>
                                     <label class="admin-panel__label">
-                                        <input type="text" value="Антон Збаровский">
+                                        <input id="main__page__slider__ru__1__fio" type="text" value="Антон Збаровский">
                                     </label>
                                 </div>
                                 <div class="admin-panel__access">
@@ -405,11 +406,11 @@
                                                                                     Изменить
                                                                             </span>
                                     </button>
-                                    <button class="admin-panel__save_btn save_btn" type="button">
+                                    <button onclick="clickSave('main_page_slider_ru', 'architect', 'main__page__slider__ru__1__fio')" class="admin-panel__save_btn save_btn" type="button">
                                         <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="#E45847" d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
                                         <span>
-                                                                                    Сохранить
-                                                                            </span>
+                                                Сохранить
+                                        </span>
                                     </button>
                                 </div>
                             </div>
@@ -418,8 +419,9 @@
                                     <div class="admin-panel__content_name">
                                         Ссылка на проект
                                     </div>
+
                                     <label class="admin-panel__label">
-                                        <input type="text" value="http://homespro.com/poject123">
+                                        <input id="main__page__slider__ru__1" type="text" value="http://homespro.com/poject123">
                                     </label>
                                 </div>
                                 <div class="admin-panel__access">
@@ -429,163 +431,14 @@
                                                   fill="#E45847" />
                                         </svg>
                                         <span>
-                                                                                    Изменить
-                                                                            </span>
+                                            Изменить
+                                        </span>
                                     </button>
-                                    <button class="admin-panel__save_btn save_btn" type="button">
+                                    <button onclick="clickSave('main_page_slider_ru', 'project_href', 'main__page__slider__ru__1')" class="admin-panel__save_btn save_btn" type="button">
                                         <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="#E45847" d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
                                         <span>
-                                                                                    Сохранить
-                                                                            </span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="admin-panel__content">
-                            <div class="admin-panel__item_title">
-                                Слайд №2
-                                <button class="admin-panel__delete_btn delete_btn" type="button">
-                                    Удалить
-                                </button>
-                            </div>
-                            <div class="admin-panel__item">
-                                <div class="admin-panel__parameters">
-                                    <div class="admin-panel__content_name">
-                                        Главная фотография
-                                    </div>
-                                    <div class="admin-panel__label">
-                                        photo.jpeg
-                                    </div>
-                                    <label class="admin-panel__label">
-                                        <input type="file" name="main-page__img">
-                                    </label>
-                                </div>
-                                <div class="admin-panel__access">
-                                    <button class="admin-panel__edit_btn edit_btn" type="button">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M11.3344.603957c.7812-.781187 2.05-.781187 2.8312 0l1.2313 1.232183c.7812.78094.7812 2.04844 0 2.82969l-1.5125 1.5125-4.06253-4.06187L11.3344.603957Zm1.8437 6.280623L5.89062 14.169c-.325.325-.72813.5656-1.16875.6937L.961554 15.969c-.263125.0781-.547812.0062-.741875-.2157-.194062-.1656-.2666245-.45-.189187-.7156l1.106058-3.7594c.13-.4406.36844-.8437.69375-1.1687l7.28532-7.28627 4.06248 4.06125Z"
-                                                  fill="#E45847" />
-                                        </svg>
-                                        <span>
-                                                                                    Изменить
-                                                                            </span>
-                                    </button>
-                                    <button class="admin-panel__save_btn save_btn" type="button">
-                                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="#E45847" d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
-                                        <span>
-                                                                                    Сохранить
-                                                                            </span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="admin-panel__item">
-                                <div class="admin-panel__parameters">
-                                    <div class="admin-panel__content_name">
-                                        Название проекта
-                                    </div>
-                                    <label class="admin-panel__label">
-                                        <input type="text" value="Prairie House">
-                                    </label>
-                                </div>
-                                <div class="admin-panel__access">
-                                    <button class="admin-panel__edit_btn edit_btn" type="button">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M11.3344.603957c.7812-.781187 2.05-.781187 2.8312 0l1.2313 1.232183c.7812.78094.7812 2.04844 0 2.82969l-1.5125 1.5125-4.06253-4.06187L11.3344.603957Zm1.8437 6.280623L5.89062 14.169c-.325.325-.72813.5656-1.16875.6937L.961554 15.969c-.263125.0781-.547812.0062-.741875-.2157-.194062-.1656-.2666245-.45-.189187-.7156l1.106058-3.7594c.13-.4406.36844-.8437.69375-1.1687l7.28532-7.28627 4.06248 4.06125Z"
-                                                  fill="#E45847" />
-                                        </svg>
-                                        <span>
-                                                                                    Изменить
-                                                                            </span>
-                                    </button>
-                                    <button class="admin-panel__save_btn save_btn" type="button">
-                                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="#E45847" d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
-                                        <span>
-                                                                                    Сохранить
-                                                                            </span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="admin-panel__item">
-                                <div class="admin-panel__parameters">
-                                    <div class="admin-panel__content_name">
-                                        Фотография архитектора
-                                    </div>
-                                    <div class="admin-panel__label admin-panel__label-img">
-                                        photo.jpeg
-                                    </div>
-                                    <label class="admin-panel__label">
-                                        <input type="file" name="main-page__img">
-                                    </label>
-                                </div>
-                                <div class="admin-panel__access">
-                                    <button class="admin-panel__edit_btn edit_btn" type="button">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M11.3344.603957c.7812-.781187 2.05-.781187 2.8312 0l1.2313 1.232183c.7812.78094.7812 2.04844 0 2.82969l-1.5125 1.5125-4.06253-4.06187L11.3344.603957Zm1.8437 6.280623L5.89062 14.169c-.325.325-.72813.5656-1.16875.6937L.961554 15.969c-.263125.0781-.547812.0062-.741875-.2157-.194062-.1656-.2666245-.45-.189187-.7156l1.106058-3.7594c.13-.4406.36844-.8437.69375-1.1687l7.28532-7.28627 4.06248 4.06125Z"
-                                                  fill="#E45847" />
-                                        </svg>
-                                        <span>
-                                                                                    Изменить
-                                                                            </span>
-                                    </button>
-                                    <button class="admin-panel__save_btn save_btn" type="button">
-                                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="#E45847" d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
-                                        <span>
-                                                                                    Сохранить
-                                                                            </span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="admin-panel__item">
-                                <div class="admin-panel__parameters">
-                                    <div class="admin-panel__content_name">
-                                        Имя Фамилия
-                                    </div>
-                                    <label class="admin-panel__label">
-                                        <input type="text" value="Антон Збаровский">
-                                    </label>
-                                </div>
-                                <div class="admin-panel__access">
-                                    <button class="admin-panel__edit_btn edit_btn" type="button">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M11.3344.603957c.7812-.781187 2.05-.781187 2.8312 0l1.2313 1.232183c.7812.78094.7812 2.04844 0 2.82969l-1.5125 1.5125-4.06253-4.06187L11.3344.603957Zm1.8437 6.280623L5.89062 14.169c-.325.325-.72813.5656-1.16875.6937L.961554 15.969c-.263125.0781-.547812.0062-.741875-.2157-.194062-.1656-.2666245-.45-.189187-.7156l1.106058-3.7594c.13-.4406.36844-.8437.69375-1.1687l7.28532-7.28627 4.06248 4.06125Z"
-                                                  fill="#E45847" />
-                                        </svg>
-                                        <span>
-                                                                                    Изменить
-                                                                            </span>
-                                    </button>
-                                    <button class="admin-panel__save_btn save_btn" type="button">
-                                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="#E45847" d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
-                                        <span>
-                                                                                    Сохранить
-                                                                            </span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="admin-panel__item">
-                                <div class="admin-panel__parameters">
-                                    <div class="admin-panel__content_name">
-                                        Ссылка на проект
-                                    </div>
-                                    <label class="admin-panel__label">
-                                        <input type="text" value="http://homespro.com/poject123">
-                                    </label>
-                                </div>
-                                <div class="admin-panel__access">
-                                    <button class="admin-panel__edit_btn edit_btn" type="button">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M11.3344.603957c.7812-.781187 2.05-.781187 2.8312 0l1.2313 1.232183c.7812.78094.7812 2.04844 0 2.82969l-1.5125 1.5125-4.06253-4.06187L11.3344.603957Zm1.8437 6.280623L5.89062 14.169c-.325.325-.72813.5656-1.16875.6937L.961554 15.969c-.263125.0781-.547812.0062-.741875-.2157-.194062-.1656-.2666245-.45-.189187-.7156l1.106058-3.7594c.13-.4406.36844-.8437.69375-1.1687l7.28532-7.28627 4.06248 4.06125Z"
-                                                  fill="#E45847" />
-                                        </svg>
-                                        <span>
-                                                                                    Изменить
-                                                                            </span>
-                                    </button>
-                                    <button class="admin-panel__save_btn save_btn" type="button">
-                                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="#E45847" d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
-                                        <span>
-                                                                                    Сохранить
-                                                                            </span>
+                                                Сохранить
+                                        </span>
                                     </button>
                                 </div>
                             </div>
@@ -3861,4 +3714,8 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('js')
+    <script src="/js/admin/admin_ru.js"></script>
 @endsection

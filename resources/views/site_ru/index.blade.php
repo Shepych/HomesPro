@@ -3,10 +3,11 @@
     <section class="section main_slider">
         <div class="swiper swiper_main">
             <div class="swiper-wrapper">
-                <div class="swiper-slide slide">
+                @foreach($main_slider as $slide)
+                    <div class="swiper-slide slide">
                     <div class="container">
                         <div class="section__suptitle">ТОП-5 проектов 2021 года</div>
-                        <h1 class="section__title">Prairie House</h1>
+                        <h1 class="section__title">{{ $slide->title }}</h1>
                         <div class="creator">
                             <div class="creator__img"><img src="img/creators/creator_small.png"/></div>
                             <div class="creator__inner">
@@ -21,52 +22,12 @@
                             </div>
                             <div class="btn__bottom">объект</div></a>
                     </div>
-                    <div class="slide__img"><img src="img/main_slider/main_slider1.jpg"/></div>
-                    <div class="slide__info">Modern Break 3</div>
+                    <div class="slide__img"><img src="{{ $slide->banner }}" style="width: 100%"/></div>
+                    <div class="slide__info">{{ $slide->subtitle }}</div>
                 </div>
-                <div class="swiper-slide slide">
-                    <div class="container">
-                        <div class="section__suptitle">ТОП-5 проектов 2021 года</div>
-                        <h1 class="section__title">Prairie House 2</h1>
-                        <div class="creator">
-                            <div class="creator__img"><img src="img/creators/creator_small.png"/></div>
-                            <div class="creator__inner">
-                                <div class="creator__prof">Архитектор</div>
-                                <div class="creator__name">Антон Збаровский</div>
-                            </div>
-                        </div><a class="btn btn_square" href="#">
-                            <div class="btn__top">
-                                смотреть<svg width="19" height="14" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 6.15c-.469442 0-.85.38056-.85.85 0 .46944.380558.85.85.85v-1.7Zm17.601 1.45104c.332-.33194.332-.87014 0-1.20208L13.1917.989592c-.332-.331945-.8702-.331945-1.2021 0-.332.331948-.332.870138 0 1.202078L16.7979 7l-4.8083 4.8083c-.332.332-.332.8702 0 1.2021.3319.332.8701.332 1.2021 0l5.4093-5.40936ZM1 7.85h17v-1.7H1v1.7Z" fill="#E45847"/>
-                                </svg>
-                            </div>
-                            <div class="btn__bottom">объект</div></a>
-                    </div>
-                    <div class="slide__img"><img src="img/main_slider/main_slider1.jpg"/></div>
-                    <div class="slide__info">Modern Break 3</div>
-                </div>
-                <div class="swiper-slide slide">
-                    <div class="container">
-                        <div class="section__suptitle">ТОП-5 проектов 2021 года</div>
-                        <h1 class="section__title">Prairie House 3</h1>
-                        <div class="creator">
-                            <div class="creator__img"><img src="img/creators/creator_small.png"/></div>
-                            <div class="creator__inner">
-                                <div class="creator__prof">Архитектор</div>
-                                <div class="creator__name">Антон Збаровский</div>
-                            </div>
-                        </div><a class="btn btn_square" href="#">
-                            <div class="btn__top">
-                                смотреть<svg width="19" height="14" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 6.15c-.469442 0-.85.38056-.85.85 0 .46944.380558.85.85.85v-1.7Zm17.601 1.45104c.332-.33194.332-.87014 0-1.20208L13.1917.989592c-.332-.331945-.8702-.331945-1.2021 0-.332.331948-.332.870138 0 1.202078L16.7979 7l-4.8083 4.8083c-.332.332-.332.8702 0 1.2021.3319.332.8701.332 1.2021 0l5.4093-5.40936ZM1 7.85h17v-1.7H1v1.7Z" fill="#E45847"/>
-                                </svg>
-                            </div>
-                            <div class="btn__bottom">объект</div></a>
-                    </div>
-                    <div class="slide__img"><img src="img/main_slider/main_slider1.jpg"/></div>
-                    <div class="slide__info">Modern Break 3</div>
-                </div>
+                @endforeach
             </div>
+
             <div class="swiper__controls">
                 <div class="swiper__num"></div>
                 <div class="swiper__btns">

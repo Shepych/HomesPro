@@ -9,72 +9,37 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Http\Controllers\BreadSlicesController;
+use Illuminate\Support\Facades\DB;
 
 class CabinetController extends Controller
 {
     public function generate_profile(Request $request){
         return view('cabinet.user_profile');
     }
+
     public function generate_users_list(Request $request){
-        $customers=User::all()->where('status','customer');
-        $employees=User::all()->where('status','employee');
-        $customers_accesses=[];
-        foreach ($customers as $customer){
-            $accesses_of_user_full=[];
-            $accesses_of_user=[];
-            array_push($accesses_of_user_full, $customer['login']);
-            foreach (json_decode($customer['accesses']) as $access){
-                $access_link=Access::all()->where('id', $access);
-                if($access_link) {
-                    foreach ($access_link as $access_lim){
-                        $access_id=$access_lim['id'];
-                        $access_project_id=$access_lim['personal_project_id'];
-                        $access_type=$access_lim['access_type'];
-                    }
-                    $personal_projects=Personal_Project::all()->where('id',$access_project_id);
-                    foreach($personal_projects as $personal_project){
-                        $project_name=$personal_project['name'];
-                    }
-                    $access_full=[$project_name,$access_type,$access_id];
-                    array_push($accesses_of_user, $access_full);
-                }
+        # Определяем переменные
+        $users = User::all();
+        $customers = [];
+        $employees = [];
+
+        # Делаем разбиение таблицы `Users` на 2 массива: Клиентов и Сотрудников
+        foreach ($users as $user) {
+            if ($user->hasRole('customer')) {
+                $customers[] = $user;
             }
-            array_push($accesses_of_user_full, $accesses_of_user);
-            array_push($customers_accesses,$accesses_of_user_full);
-        }
-        $employees_accesses=[];
-        foreach ($employees as $employee) {
-            $accesses_of_user_full = [];
-            $accesses_of_user = [];
-            array_push($accesses_of_user_full, $employee['login']);
-            foreach (json_decode($employee['accesses']) as $access) {
-                $access_link = Access::all()->where('id', $access);
-                if ($access_link) {
-                    foreach ($access_link as $access_lim) {
-                        $access_id=$access_lim['id'];
-                        $access_project_id = $access_lim['personal_project_id'];
-                        $access_type = $access_lim['access_type'];
-                    }
-                    $personal_projects = Personal_Project::all()->where('id', $access_project_id);
-                    foreach ($personal_projects as $personal_project) {
-                        $project_name = $personal_project['name'];
-                    }
-                    $access_full = [$project_name, $access_type,$access_id];
-                    array_push($accesses_of_user, $access_full);
-                }
+
+            if ($user->hasRole('employee')) {
+                $employees[] = $user;
             }
-            array_push($accesses_of_user_full, $accesses_of_user);
-            array_push($employees_accesses, $accesses_of_user_full);
         }
-        if((Auth::user()->status=="admin")||(Auth::user()->status=="employee")){
-            return view('cabinet.users_list',[
-                'customers' => $customers_accesses,
-                'employees' => $employees_accesses
+
+        return view('cabinet.users_list',[
+                'customers' => $customers,
+                'employees' => $employees
             ]);
-        } else {
-            return route('user.cabinet_profile');
-        }
     }
+
     public function generate_personal_projects_list(Request $request){
         if(Auth::User()->status=='admin'){
             $active_projects_list = [Personal_Project::all()->where('status', 'active')];
