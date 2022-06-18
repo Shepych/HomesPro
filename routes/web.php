@@ -14,16 +14,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\AdminPanelController;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 Route::name('order.')->group(function(){
 
     Route::post('/order_creation', [OrderController::class, 'create'])->name('create');
@@ -114,6 +105,16 @@ Route::name('site_en.')->group(function() {
 
     Route::get('/en/books', [BooksController::class, 'generate_en'])->name('books');
 
+});
+
+# Админ панель
+Route::middleware(['role:admin'])->name('admin.')->group(function() {
+
+    {   # Маршруты таблицы `main_page_slider_ru`
+        Route::get('/admin/main_page_slider_ru/add_slider', [AdminPanelController::class, 'main_page_slider_ru'])->name('main_page_slider_ru.add_slider');
+        Route::get('/admin/main_page_slider_ru/delete_slider/{id}', [AdminPanelController::class, 'main_page_slider_ru_delete'])->name('main_page_slider_ru.delete_slider');
+        Route::post('/admin/main_page_slider_ru/update_slider/{id}', [AdminPanelController::class, 'main_page_slider_ru_update'])->name('main_page_slider_ru.update_slider');
+    }
 });
 
 Route::get('/lang', [LangController::class, 'change'])->name('lang_changer');

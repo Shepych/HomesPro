@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no">
         <title>Личный Кабинет</title>
         <link rel="stylesheet" href="{{asset('css/main.min.css')}}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     </head>
     <body>
         <header class="header header_cabinet">
